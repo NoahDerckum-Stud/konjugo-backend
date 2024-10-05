@@ -1,0 +1,1832 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Konjugo Backend Dokumentation</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Konjugo Backend Dokumentation</h1>
+    <div class="app-desc">Diese Seite enthält alle Endpunke, die in dem Projekt Konjugo eingerichtet sind.</div>
+    <div class="app-desc">More information: <a href="https://github.com/NoahDerckum-Stud/konjugo-backend">https://github.com/NoahDerckum-Stud/konjugo-backend</a></div>
+    <div class="app-desc">Contact Info: <a href="noah.derckum@stud.hshl.de">noah.derckum@stud.hshl.de</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>HTTP Basic Authentication</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Auth">Auth</a></h4>
+  <ul>
+  <li><a href="#userLoggedInGet"><code><span class="http-method">get</span> /user/logged_in</code></a></li>
+  <li><a href="#userLoginPost"><code><span class="http-method">post</span> /user/login</code></a></li>
+  <li><a href="#userLogoutGet"><code><span class="http-method">get</span> /user/logout</code></a></li>
+  <li><a href="#userRegisterPost"><code><span class="http-method">post</span> /user/register</code></a></li>
+  <li><a href="#userUserExistsPost"><code><span class="http-method">post</span> /user/user_exists</code></a></li>
+  </ul>
+  <h4><a href="#Profile">Profile</a></h4>
+  <ul>
+  <li><a href="#profileMailPut"><code><span class="http-method">put</span> /profile/mail</code></a></li>
+  <li><a href="#profilePasswordPut"><code><span class="http-method">put</span> /profile/password</code></a></li>
+  <li><a href="#profileProfileInfoPost"><code><span class="http-method">post</span> /profile/profile_info</code></a></li>
+  <li><a href="#profileUserDelete"><code><span class="http-method">delete</span> /profile/user</code></a></li>
+  <li><a href="#profileUsernamePut"><code><span class="http-method">put</span> /profile/username</code></a></li>
+  </ul>
+  <h4><a href="#Stats">Stats</a></h4>
+  <ul>
+  <li><a href="#statsGetStatisticsPost"><code><span class="http-method">post</span> /stats/get_statistics</code></a></li>
+  <li><a href="#statsStatisticsPost"><code><span class="http-method">post</span> /stats/statistics</code></a></li>
+  </ul>
+  <h4><a href="#Stories">Stories</a></h4>
+  <ul>
+  <li><a href="#storiesGetStoryDashPost"><code><span class="http-method">post</span> /stories/get_story_dash</code></a></li>
+  <li><a href="#storiesGetStoryPost"><code><span class="http-method">post</span> /stories/get_story</code></a></li>
+  <li><a href="#storiesSetStoryLikePost"><code><span class="http-method">post</span> /stories/set_story_like</code></a></li>
+  <li><a href="#storiesStoryPost"><code><span class="http-method">post</span> /stories/story</code></a></li>
+  </ul>
+  <h4><a href="#Train">Train</a></h4>
+  <ul>
+  <li><a href="#trainGetLemmaCollectionsPost"><code><span class="http-method">post</span> /train/get_lemma_collections</code></a></li>
+  <li><a href="#trainLangdetailsPost"><code><span class="http-method">post</span> /train/langdetails</code></a></li>
+  <li><a href="#trainLanguagesGet"><code><span class="http-method">get</span> /train/languages</code></a></li>
+  <li><a href="#trainLemmaPreviewPost"><code><span class="http-method">post</span> /train/lemma_preview</code></a></li>
+  <li><a href="#trainStartChallangePost"><code><span class="http-method">post</span> /train/start_challange</code></a></li>
+  </ul>
+
+  <h1><a name="Auth">Auth</a></h1>
+  <div class="method"><a name="userLoggedInGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/logged_in</code></pre></div>
+    <div class="method-summary">Prüft die Nutzeranmeldung mit der authMiddleware (<span class="nickname">userLoggedInGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    Unauthorisiert
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userLoginPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/login</code></pre></div>
+    <div class="method-summary">Anmeldung des Benutzers (<span class="nickname">userLoginPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#user_login_body">user_login_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing mail / password, User not found, Invalid password
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userLogoutGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/logout</code></pre></div>
+    <div class="method-summary">Meldet den Nutzer ab (<span class="nickname">userLogoutGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">401</h4>
+    Unauthorisiert
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userRegisterPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/register</code></pre></div>
+    <div class="method-summary">Registrierung des Benutzers (<span class="nickname">userRegisterPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#user_register_body">user_register_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Invalid username length, Invalid password length, Incorrect Mail format, Username already exists
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userUserExistsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/user_exists</code></pre></div>
+    <div class="method-summary">Registrierung des Benutzers (<span class="nickname">userUserExistsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#user_user_exists_body">user_user_exists_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "exists" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#inline_response_200">inline_response_200</a>
+    <h4 class="field-label">400</h4>
+    Missing Mail
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Profile">Profile</a></h1>
+  <div class="method"><a name="profileMailPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /profile/mail</code></pre></div>
+    <div class="method-summary">Aktualisiere die Mailadresse des angemeldeten Nutzers (<span class="nickname">profileMailPut</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#profile_mail_body">profile_mail_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameter, Incorrect Mail format
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="profilePasswordPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /profile/password</code></pre></div>
+    <div class="method-summary">Aktualisiere das Passwort des angemeldeten Nutzers (<span class="nickname">profilePasswordPut</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#profile_password_body">profile_password_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameter, Invalid password length
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="profileProfileInfoPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /profile/profile_info</code></pre></div>
+    <div class="method-summary">Erhalte Informationen zum angemeldeten Profil (<span class="nickname">profileProfileInfoPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_1">inline_response_200_1</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mail" : "mail",
+  "username" : "username"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="profileUserDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /profile/user</code></pre></div>
+    <div class="method-summary">Lösche den angemeldeten und authorisierten Nutzer (<span class="nickname">profileUserDelete</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="profileUsernamePut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /profile/username</code></pre></div>
+    <div class="method-summary">Aktualisiere den Nutzernamen des angemeldeten Nutzers (<span class="nickname">profileUsernamePut</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#profile_username_body">profile_username_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameter, Invalid username length, Username already exists
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Stats">Stats</a></h1>
+  <div class="method"><a name="statsGetStatisticsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stats/get_statistics</code></pre></div>
+    <div class="method-summary">Erhalte eine Gesamtübersicht über die Nutzerstatistiken (<span class="nickname">statsGetStatisticsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stats_get_statistics_body">stats_get_statistics_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StatisticsResult">StatisticsResult</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "graphData" : {
+    "dataSets" : {
+      "levenshtein" : [ {
+        "backgroundColor" : "backgroundColor",
+        "borderColor" : "borderColor",
+        "data" : [ 1.4658129805029452, 1.4658129805029452 ],
+        "label" : "label",
+        "attrtype" : "attrtype"
+      }, {
+        "backgroundColor" : "backgroundColor",
+        "borderColor" : "borderColor",
+        "data" : [ 1.4658129805029452, 1.4658129805029452 ],
+        "label" : "label",
+        "attrtype" : "attrtype"
+      } ],
+      "seconds" : [ null, null ]
+    },
+    "labels" : [ "labels", "labels" ]
+  },
+  "list" : [ {
+    "levenshtein" : 6.027456183070403,
+    "langiso" : "langiso",
+    "seconds" : 0.8008281904610115,
+    "lemma" : "lemma",
+    "_id" : "_id",
+    "tags" : [ "tags", "tags" ],
+    "timestamp" : "timestamp"
+  }, {
+    "levenshtein" : 6.027456183070403,
+    "langiso" : "langiso",
+    "seconds" : 0.8008281904610115,
+    "lemma" : "lemma",
+    "_id" : "_id",
+    "tags" : [ "tags", "tags" ],
+    "timestamp" : "timestamp"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#StatisticsResult">StatisticsResult</a>
+    <h4 class="field-label">400</h4>
+    Missing / Bad Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="statsStatisticsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stats/statistics</code></pre></div>
+    <div class="method-summary">Lade Nutzerstatistiken hoch (<span class="nickname">statsStatisticsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stats_statistics_body">stats_statistics_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing / Bad Parameters, Bad statistics format
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Stories">Stories</a></h1>
+  <div class="method"><a name="storiesGetStoryDashPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stories/get_story_dash</code></pre></div>
+    <div class="method-summary">Erhalte einen Überblick über alle Geschichten zu einer Sprache (<span class="nickname">storiesGetStoryDashPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stories_get_story_dash_body">stories_get_story_dash_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StoryCollection">StoryCollection</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "popularStories" : [ null, null ],
+  "userStories" : [ {
+    "langiso" : "langiso",
+    "placeholders" : [ {
+      "flection" : "flection",
+      "lemma" : "lemma",
+      "type" : "type",
+      "tags" : [ "tags", "tags" ]
+    }, {
+      "flection" : "flection",
+      "lemma" : "lemma",
+      "type" : "type",
+      "tags" : [ "tags", "tags" ]
+    } ],
+    "placeholderCount" : 6,
+    "description" : "description",
+    "likeCount" : 0,
+    "_id" : "_id",
+    "text" : [ "text", "text" ],
+    "title" : "title",
+    "timestamp" : "timestamp"
+  }, {
+    "langiso" : "langiso",
+    "placeholders" : [ {
+      "flection" : "flection",
+      "lemma" : "lemma",
+      "type" : "type",
+      "tags" : [ "tags", "tags" ]
+    }, {
+      "flection" : "flection",
+      "lemma" : "lemma",
+      "type" : "type",
+      "tags" : [ "tags", "tags" ]
+    } ],
+    "placeholderCount" : 6,
+    "description" : "description",
+    "likeCount" : 0,
+    "_id" : "_id",
+    "text" : [ "text", "text" ],
+    "title" : "title",
+    "timestamp" : "timestamp"
+  } ],
+  "recentStories" : [ null, null ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#StoryCollection">StoryCollection</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="storiesGetStoryPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stories/get_story</code></pre></div>
+    <div class="method-summary">Erhalte alle Details zu einer bestimmten Story (<span class="nickname">storiesGetStoryPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stories_get_story_body">stories_get_story_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Story">Story</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "langiso" : "langiso",
+  "placeholders" : [ {
+    "flection" : "flection",
+    "lemma" : "lemma",
+    "type" : "type",
+    "tags" : [ "tags", "tags" ]
+  }, {
+    "flection" : "flection",
+    "lemma" : "lemma",
+    "type" : "type",
+    "tags" : [ "tags", "tags" ]
+  } ],
+  "placeholderCount" : 6,
+  "description" : "description",
+  "likeCount" : 0,
+  "_id" : "_id",
+  "text" : [ "text", "text" ],
+  "title" : "title",
+  "timestamp" : "timestamp"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Story">Story</a>
+    <h4 class="field-label">400</h4>
+    Invalid story id
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="storiesSetStoryLikePost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stories/set_story_like</code></pre></div>
+    <div class="method-summary">Like / Dislike eine Geschichte (<span class="nickname">storiesSetStoryLikePost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stories_set_story_like_body">stories_set_story_like_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="storiesStoryPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stories/story</code></pre></div>
+    <div class="method-summary">Erstelle eine Geschichte (<span class="nickname">storiesStoryPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stories_story_body">stories_story_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Invalid Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Train">Train</a></h1>
+  <div class="method"><a name="trainGetLemmaCollectionsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /train/get_lemma_collections</code></pre></div>
+    <div class="method-summary">Erhalte eine Liste an Lemma-Sammlungen (<span class="nickname">trainGetLemmaCollectionsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#train_get_lemma_collections_body">train_get_lemma_collections_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LemmaCollection">LemmaCollection</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "langiso" : "langiso",
+  "lemmas" : [ {
+    "lemma" : "lemma",
+    "type" : "type"
+  }, {
+    "lemma" : "lemma",
+    "type" : "type"
+  } ],
+  "description" : "description",
+  "_id" : "_id",
+  "title" : "title"
+}, {
+  "langiso" : "langiso",
+  "lemmas" : [ {
+    "lemma" : "lemma",
+    "type" : "type"
+  }, {
+    "lemma" : "lemma",
+    "type" : "type"
+  } ],
+  "description" : "description",
+  "_id" : "_id",
+  "title" : "title"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#LemmaCollection">LemmaCollection</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="trainLangdetailsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /train/langdetails</code></pre></div>
+    <div class="method-summary">Erhalte die vollständige Detailansicht einer Sprache (<span class="nickname">trainLangdetailsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#train_langdetails_body">train_langdetails_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LanguageDetails">LanguageDetails</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "langiso" : "langiso",
+  "groups" : [ {
+    "type" : "type",
+    "tags" : [ {
+      "preview" : "preview",
+      "attributes" : [ "attributes", "attributes" ],
+      "id" : "id"
+    }, {
+      "preview" : "preview",
+      "attributes" : [ "attributes", "attributes" ],
+      "id" : "id"
+    } ]
+  }, {
+    "type" : "type",
+    "tags" : [ {
+      "preview" : "preview",
+      "attributes" : [ "attributes", "attributes" ],
+      "id" : "id"
+    }, {
+      "preview" : "preview",
+      "attributes" : [ "attributes", "attributes" ],
+      "id" : "id"
+    } ]
+  } ],
+  "_id" : "_id",
+  "imageref" : "imageref",
+  "title" : {
+    "iso" : "iso",
+    "eng" : "eng"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#LanguageDetails">LanguageDetails</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="trainLanguagesGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /train/languages</code></pre></div>
+    <div class="method-summary">Erhalte eine Liste aller Sprachen (<span class="nickname">trainLanguagesGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LanguageArray">LanguageArray</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "langiso" : "langiso",
+  "imageref" : "imageref",
+  "title" : "title"
+}, {
+  "langiso" : "langiso",
+  "imageref" : "imageref",
+  "title" : "title"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#LanguageArray">LanguageArray</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="trainLemmaPreviewPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /train/lemma_preview</code></pre></div>
+    <div class="method-summary">Lade die Vorschau von den Lemmas, die die Eingabe enthalten (<span class="nickname">trainLemmaPreviewPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#train_lemma_preview_body">train_lemma_preview_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LemmaPreviewArray">LemmaPreviewArray</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "lemma" : "lemma",
+  "type" : "type"
+}, {
+  "lemma" : "lemma",
+  "type" : "type"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#LemmaPreviewArray">LemmaPreviewArray</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="trainStartChallangePost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /train/start_challange</code></pre></div>
+    <div class="method-summary">Erhalte eine Trainingseinheit (<span class="nickname">trainStartChallangePost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#train_start_challange_body">train_start_challange_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LanguageArray">LanguageArray</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "langiso" : "langiso",
+  "imageref" : "imageref",
+  "title" : "title"
+}, {
+  "langiso" : "langiso",
+  "imageref" : "imageref",
+  "title" : "title"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#LanguageArray">LanguageArray</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters, Invalid language iso
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Langauge"><code>Langauge</code></a></li>
+    <li><a href="#LanguageArray"><code>LanguageArray</code></a></li>
+    <li><a href="#LanguageDetails"><code>LanguageDetails</code></a></li>
+    <li><a href="#LanguageDetails_groups"><code>LanguageDetails_groups</code></a></li>
+    <li><a href="#LanguageDetails_tags"><code>LanguageDetails_tags</code></a></li>
+    <li><a href="#LanguageDetails_title"><code>LanguageDetails_title</code></a></li>
+    <li><a href="#LemmaCollection"><code>LemmaCollection</code></a></li>
+    <li><a href="#LemmaCollection_inner"><code>LemmaCollection_inner</code></a></li>
+    <li><a href="#LemmaPreview"><code>LemmaPreview</code></a></li>
+    <li><a href="#LemmaPreviewArray"><code>LemmaPreviewArray</code></a></li>
+    <li><a href="#MessageResponse"><code>MessageResponse</code></a></li>
+    <li><a href="#StatisticsResult"><code>StatisticsResult</code></a></li>
+    <li><a href="#StatisticsResult_graphData"><code>StatisticsResult_graphData</code></a></li>
+    <li><a href="#StatisticsResult_graphData_dataSets"><code>StatisticsResult_graphData_dataSets</code></a></li>
+    <li><a href="#StatisticsResult_list"><code>StatisticsResult_list</code></a></li>
+    <li><a href="#Story"><code>Story</code></a></li>
+    <li><a href="#StoryCollection"><code>StoryCollection</code></a></li>
+    <li><a href="#Story_placeholders"><code>Story_placeholders</code></a></li>
+    <li><a href="#SummarizedGraph"><code>SummarizedGraph</code></a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+    <li><a href="#inline_response_200_1"><code>inline_response_200_1</code></a></li>
+    <li><a href="#profile_mail_body"><code>profile_mail_body</code></a></li>
+    <li><a href="#profile_password_body"><code>profile_password_body</code></a></li>
+    <li><a href="#profile_username_body"><code>profile_username_body</code></a></li>
+    <li><a href="#stats_get_statistics_body"><code>stats_get_statistics_body</code></a></li>
+    <li><a href="#stats_statistics_body"><code>stats_statistics_body</code></a></li>
+    <li><a href="#statsstatistics_statistics"><code>statsstatistics_statistics</code></a></li>
+    <li><a href="#stories_get_story_body"><code>stories_get_story_body</code></a></li>
+    <li><a href="#stories_get_story_dash_body"><code>stories_get_story_dash_body</code></a></li>
+    <li><a href="#stories_set_story_like_body"><code>stories_set_story_like_body</code></a></li>
+    <li><a href="#stories_story_body"><code>stories_story_body</code></a></li>
+    <li><a href="#train_get_lemma_collections_body"><code>train_get_lemma_collections_body</code></a></li>
+    <li><a href="#train_langdetails_body"><code>train_langdetails_body</code></a></li>
+    <li><a href="#train_lemma_preview_body"><code>train_lemma_preview_body</code></a></li>
+    <li><a href="#train_start_challange_body"><code>train_start_challange_body</code></a></li>
+    <li><a href="#user_login_body"><code>user_login_body</code></a></li>
+    <li><a href="#user_register_body"><code>user_register_body</code></a></li>
+    <li><a href="#user_user_exists_body"><code>user_user_exists_body</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Langauge"><code>Langauge</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">imageref (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LanguageArray"><code>LanguageArray</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LanguageDetails"><code>LanguageDetails</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#LanguageDetails_title">LanguageDetails_title</a></span>  </div>
+<div class="param">imageref (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">groups (optional)</div><div class="param-desc"><span class="param-type"><a href="#LanguageDetails_groups">array[LanguageDetails_groups]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LanguageDetails_groups"><code>LanguageDetails_groups</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">header (optional)</div><div class="param-desc"><span class="param-type"><a href="#LanguageDetails_title">LanguageDetails_title</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#LanguageDetails_tags">array[LanguageDetails_tags]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LanguageDetails_tags"><code>LanguageDetails_tags</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">preview (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#LanguageDetails_title">LanguageDetails_title</a></span>  </div>
+<div class="param">attributes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LanguageDetails_title"><code>LanguageDetails_title</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">eng (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">iso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LemmaCollection"><code>LemmaCollection</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LemmaCollection_inner"><code>LemmaCollection_inner</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lemmas (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">array[Object]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LemmaPreview"><code>LemmaPreview</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">lemma (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LemmaPreviewArray"><code>LemmaPreviewArray</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MessageResponse"><code>MessageResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StatisticsResult"><code>StatisticsResult</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">list (optional)</div><div class="param-desc"><span class="param-type"><a href="#StatisticsResult_list">array[StatisticsResult_list]</a></span>  </div>
+<div class="param">graphData (optional)</div><div class="param-desc"><span class="param-type"><a href="#StatisticsResult_graphData">StatisticsResult_graphData</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StatisticsResult_graphData"><code>StatisticsResult_graphData</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">labels (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">dataSets (optional)</div><div class="param-desc"><span class="param-type"><a href="#StatisticsResult_graphData_dataSets">StatisticsResult_graphData_dataSets</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StatisticsResult_graphData_dataSets"><code>StatisticsResult_graphData_dataSets</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">levenshtein (optional)</div><div class="param-desc"><span class="param-type"><a href="#SummarizedGraph">array[SummarizedGraph]</a></span>  </div>
+<div class="param">seconds (optional)</div><div class="param-desc"><span class="param-type"><a href="#SummarizedGraph">array[SummarizedGraph]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StatisticsResult_list"><code>StatisticsResult_list</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lemma (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">seconds (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">levenshtein (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Story"><code>Story</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">placeholders (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story_placeholders">array[Story_placeholders]</a></span>  </div>
+<div class="param">likeCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">placeholderCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StoryCollection"><code>StoryCollection</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">userStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
+<div class="param">recentStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
+<div class="param">popularStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Story_placeholders"><code>Story_placeholders</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">lemma (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">flection (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SummarizedGraph"><code>SummarizedGraph</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">array[BigDecimal]</a></span>  </div>
+<div class="param">label (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">backgroundColor (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">borderColor (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">attrtype (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">exists (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200_1"><code>inline_response_200_1</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">mail (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="profile_mail_body"><code>profile_mail_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">mail </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="profile_password_body"><code>profile_password_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="profile_username_body"><code>profile_username_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stats_get_statistics_body"><code>stats_get_statistics_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">displayLangiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">attributes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">grouping (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">dateRange (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">page (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stats_statistics_body"><code>stats_statistics_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">statistics </div><div class="param-desc"><span class="param-type"><a href="#statsstatistics_statistics">array[statsstatistics_statistics]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="statsstatistics_statistics"><code>statsstatistics_statistics</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lemma (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">seconds (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">levenshtein (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stories_get_story_body"><code>stories_get_story_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stories_get_story_dash_body"><code>stories_get_story_dash_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stories_set_story_like_body"><code>stories_set_story_like_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">state </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stories_story_body"><code>stories_story_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">title </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">story </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">types </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="train_get_lemma_collections_body"><code>train_get_lemma_collections_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="train_langdetails_body"><code>train_langdetails_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="train_lemma_preview_body"><code>train_lemma_preview_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">lemma </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="train_start_challange_body"><code>train_start_challange_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: spa</span></div>
+<div class="param">lemmas </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: [&quot;comer&quot;,&quot;hablar&quot;]</span></div>
+<div class="param">tags </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: [&quot;1_sg&quot;,&quot;ind_prs&quot;]</span></div>
+<div class="param">samples </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 10</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="user_login_body"><code>user_login_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">mail </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="user_register_body"><code>user_register_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">mail </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="user_user_exists_body"><code>user_user_exists_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">mail </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
