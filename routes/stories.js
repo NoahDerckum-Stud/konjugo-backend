@@ -28,21 +28,21 @@ router.post("/story", authMiddleware, async (req, res) => {
   let constructedText = [];
   let placeholders = [];
 
-  let storySyntax = await analyzse(story);
+  let storySyntax = await analyzse(story, langiso);
 
   let iterater = 0;
   for (let element of storySyntax) {
     let elementType = undefined;
 
-    if (element.tag == "VERB" || element.tag == "AUX") {
+    if (element.type == "VERB" || element.type == "AUX") {
       elementType = "V";
     }
 
-    if (element.tag == "ADJ") {
+    if (element.type == "ADJ") {
       elementType = "ADJ";
     }
 
-    if (element.tag == "NOUN") {
+    if (element.type == "NOUN") {
       elementType = "N";
     }
 
@@ -103,7 +103,7 @@ router.post("/set_story_like", authMiddleware, async (req, res) => {
   let id = req.body.id;
   let state = req.body.state;
 
-  if (!id || !state) {
+  if (!id || state == undefined) {
     return qr.badRequest(res, "Missing Parameters");
   }
 

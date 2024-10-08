@@ -53,7 +53,7 @@ router.post("/start_challange", authMiddleware, async (req, res) => {
       },
     },
     {
-      $sample: { size: samples + 1 },
+      $sample: { size: samples },
     },
   ];
 
