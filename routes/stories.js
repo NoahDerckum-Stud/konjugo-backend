@@ -69,18 +69,22 @@ router.post("/story", authMiddleware, async (req, res) => {
     }
   }
 
-  await await db.connection.db.collection("story").insertOne({
-    langiso: langiso,
-    user: new mongoose.Types.ObjectId(req.session.user.id),
-    text: constructedText,
-    placeholders: placeholders,
-    title: title,
-    description: description,
-    timestamp: new Date(),
-    likes: [],
-  });
+  if (placeholders.length > 0) {
+    await db.connection.db.collection("story").insertOne({
+      langiso: langiso,
+      user: new mongoose.Types.ObjectId(req.session.user.id),
+      text: constructedText,
+      placeholders: placeholders,
+      title: title,
+      description: description,
+      timestamp: new Date(),
+      likes: [],
+    });
 
-  return res.send({});
+    return res.send({});
+  } else {
+    return qr.badRequest(res, "The story does not return any challanges.");
+  }
 });
 
 router.post("/get_story", authMiddleware, async (req, res) => {
@@ -92,9 +96,13 @@ router.post("/get_story", authMiddleware, async (req, res) => {
     .project({ likes: 0 })
     .toArray();
 
-  if (story.length == 0) {
-    return qr.badRequest(res, "Invalid story id");
-  }
+  if (story.length == 0) return qr.badRequest(res, "Invalid story id");
+
+  let user = await db.connection
+    .collection("user")
+    .findOne({ _id: new mongoose.Types.ObjectId(story[0].user) });
+
+  story[0].username = user ? user.username : "Deleted User";
 
   res.send(story[0]);
 });
@@ -126,21 +134,48 @@ router.post("/set_story_like", authMiddleware, async (req, res) => {
   res.send({});
 });
 
+router.delete("/story", authMiddleware, async (req, res) => {
+  let id = req.body.id;
+
+  if (!id) {
+    return qr.badRequest(res, "Missing Parameters");
+  }
+
+  await db.connection.db.collection("story").deleteOne({
+    _id: new mongoose.Types.ObjectId(id),
+  });
+
+  res.send({});
+});
+
 router.post("/get_story_dash", authMiddleware, async (req, res) => {
   let langiso = req.body.langiso;
+  let area = req.body.area;
+  let page = req.body.page;
+
+  if (!page) page = 0;
+  if (!isFinite(page)) page = 0;
 
   if (!langiso) {
     return qr.badRequest(res, "Missing Parameters");
   }
 
-  let userStories = await db.connection.db
+  let filter = {
+    langiso: langiso,
+  };
+
+  let sort = { timestamp: -1 };
+  if (area == "popular") sort = { likeCount: -1 };
+
+  if (area == "user") {
+    filter.user = new mongoose.Types.ObjectId(req.session.user.id);
+  }
+
+  let stories = await db.connection.db
     .collection("story")
     .aggregate([
       {
-        $match: {
-          langiso: langiso,
-          user: new mongoose.Types.ObjectId(req.session.user.id),
-        },
+        $match: filter,
       },
       {
         $addFields: {
@@ -149,13 +184,14 @@ router.post("/get_story_dash", authMiddleware, async (req, res) => {
           liked: {
             $in: [new mongoose.Types.ObjectId(req.session.user.id), "$likes"],
           },
+          deletable: area == "user",
         },
       },
       {
-        $sort: { timestamp: -1 },
+        $sort: sort,
       },
       {
-        $limit: 10,
+        $limit: 500,
       },
     ])
     .project({
@@ -164,67 +200,11 @@ router.post("/get_story_dash", authMiddleware, async (req, res) => {
     })
     .toArray();
 
-  let recentStories = await db.connection.db
-    .collection("story")
-    .aggregate([
-      {
-        $match: {
-          langiso: langiso,
-        },
-      },
-      {
-        $addFields: {
-          likeCount: { $size: "$likes" },
-          placeholderCount: { $size: "$placeholders" },
-          liked: {
-            $in: [new mongoose.Types.ObjectId(req.session.user.id), "$likes"],
-          },
-        },
-      },
-      {
-        $sort: { timestamp: -1 },
-      },
-      {
-        $limit: 10,
-      },
-    ])
-    .project({
-      user: 0,
-      likes: 0,
-    })
-    .toArray();
+  let pages = Math.floor((stories.length - 1) / 10);
 
-  let popularStories = await db.connection.db
-    .collection("story")
-    .aggregate([
-      {
-        $match: {
-          langiso: langiso,
-        },
-      },
-      {
-        $addFields: {
-          likeCount: { $size: "$likes" },
-          placeholderCount: { $size: "$placeholders" },
-          liked: {
-            $in: [new mongoose.Types.ObjectId(req.session.user.id), "$likes"],
-          },
-        },
-      },
-      {
-        $sort: { likeCount: -1 },
-      },
-      {
-        $limit: 10,
-      },
-    ])
-    .project({
-      user: 0,
-      likes: 0,
-    })
-    .toArray();
+  if (page > pages) page = pages;
 
-  res.send({ userStories, recentStories, popularStories });
+  res.send({ page, pages, stories: stories.slice(page * 10, page * 10 + 10) });
 });
 
 module.exports = router;
