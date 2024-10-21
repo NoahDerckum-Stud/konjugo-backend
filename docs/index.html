@@ -222,6 +222,7 @@
   <li><a href="#storiesGetStoryDashPost"><code><span class="http-method">post</span> /stories/get_story_dash</code></a></li>
   <li><a href="#storiesGetStoryPost"><code><span class="http-method">post</span> /stories/get_story</code></a></li>
   <li><a href="#storiesSetStoryLikePost"><code><span class="http-method">post</span> /stories/set_story_like</code></a></li>
+  <li><a href="#storiesStoryDelete"><code><span class="http-method">delete</span> /stories/story</code></a></li>
   <li><a href="#storiesStoryPost"><code><span class="http-method">post</span> /stories/story</code></a></li>
   </ul>
   <h4><a href="#Train">Train</a></h4>
@@ -888,8 +889,8 @@
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
-  "popularStories" : [ null, null ],
-  "userStories" : [ {
+  "pages" : 6.027456183070403,
+  "stories" : [ {
     "langiso" : "langiso",
     "placeholders" : [ {
       "flection" : "flection",
@@ -902,9 +903,9 @@
       "type" : "type",
       "tags" : [ "tags", "tags" ]
     } ],
-    "placeholderCount" : 6,
+    "placeholderCount" : 5,
     "description" : "description",
-    "likeCount" : 0,
+    "likeCount" : 1,
     "_id" : "_id",
     "text" : [ "text", "text" ],
     "title" : "title",
@@ -922,15 +923,15 @@
       "type" : "type",
       "tags" : [ "tags", "tags" ]
     } ],
-    "placeholderCount" : 6,
+    "placeholderCount" : 5,
     "description" : "description",
-    "likeCount" : 0,
+    "likeCount" : 1,
     "_id" : "_id",
     "text" : [ "text", "text" ],
     "title" : "title",
     "timestamp" : "timestamp"
   } ],
-  "recentStories" : [ null, null ]
+  "page" : 0.8008281904610115
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -975,7 +976,7 @@
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#Story">Story</a>
+      <a href="#SingleStory">SingleStory</a>
       
     </div>
 
@@ -983,27 +984,7 @@
 
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "langiso" : "langiso",
-  "placeholders" : [ {
-    "flection" : "flection",
-    "lemma" : "lemma",
-    "type" : "type",
-    "tags" : [ "tags", "tags" ]
-  }, {
-    "flection" : "flection",
-    "lemma" : "lemma",
-    "type" : "type",
-    "tags" : [ "tags", "tags" ]
-  } ],
-  "placeholderCount" : 6,
-  "description" : "description",
-  "likeCount" : 0,
-  "_id" : "_id",
-  "text" : [ "text", "text" ],
-  "title" : "title",
-  "timestamp" : "timestamp"
-}</code></pre>
+    <pre class="example"><code>""</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1015,7 +996,7 @@
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Erfolgreiche Operation
-        <a href="#Story">Story</a>
+        <a href="#SingleStory">SingleStory</a>
     <h4 class="field-label">400</h4>
     Invalid story id
         <a href="#MessageResponse">MessageResponse</a>
@@ -1038,6 +1019,58 @@
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
       <div class="param">body <a href="#stories_set_story_like_body">stories_set_story_like_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Object
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{ }</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Erfolgreiche Operation
+        <a href="#Object">Object</a>
+    <h4 class="field-label">400</h4>
+    Missing Parameters
+        <a href="#MessageResponse">MessageResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="storiesStoryDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /stories/story</code></pre></div>
+    <div class="method-summary">Lösche eine Geschichte (<span class="nickname">storiesStoryDelete</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#stories_story_body_1">stories_story_body_1</a> (optional)</div>
       
             <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
                 </div>  <!-- field-items -->
@@ -1121,7 +1154,7 @@
     Erfolgreiche Operation
         <a href="#Object">Object</a>
     <h4 class="field-label">400</h4>
-    Invalid Parameters
+    Invalid Parameters, The story does not return any challanges.
         <a href="#MessageResponse">MessageResponse</a>
   </div> <!-- method -->
   <hr/>
@@ -1466,6 +1499,7 @@
     <li><a href="#LemmaPreview"><code>LemmaPreview</code></a></li>
     <li><a href="#LemmaPreviewArray"><code>LemmaPreviewArray</code></a></li>
     <li><a href="#MessageResponse"><code>MessageResponse</code></a></li>
+    <li><a href="#SingleStory"><code>SingleStory</code></a></li>
     <li><a href="#StatisticsResult"><code>StatisticsResult</code></a></li>
     <li><a href="#StatisticsResult_graphData"><code>StatisticsResult_graphData</code></a></li>
     <li><a href="#StatisticsResult_graphData_dataSets"><code>StatisticsResult_graphData_dataSets</code></a></li>
@@ -1486,6 +1520,7 @@
     <li><a href="#stories_get_story_dash_body"><code>stories_get_story_dash_body</code></a></li>
     <li><a href="#stories_set_story_like_body"><code>stories_set_story_like_body</code></a></li>
     <li><a href="#stories_story_body"><code>stories_story_body</code></a></li>
+    <li><a href="#stories_story_body_1"><code>stories_story_body_1</code></a></li>
     <li><a href="#train_get_lemma_collections_body"><code>train_get_lemma_collections_body</code></a></li>
     <li><a href="#train_langdetails_body"><code>train_langdetails_body</code></a></li>
     <li><a href="#train_lemma_preview_body"><code>train_lemma_preview_body</code></a></li>
@@ -1587,6 +1622,22 @@
     </div>  <!-- field-items -->
   </div>
   <div class="model">
+    <h3><a name="SingleStory"><code>SingleStory</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">placeholders (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story_placeholders">array[Story_placeholders]</a></span>  </div>
+<div class="param">likeCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">placeholderCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
     <h3><a name="StatisticsResult"><code>StatisticsResult</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
@@ -1642,9 +1693,9 @@
     <h3><a name="StoryCollection"><code>StoryCollection</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
-      <div class="param">userStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
-<div class="param">recentStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
-<div class="param">popularStories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
+      <div class="param">page (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">pages (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">stories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -1747,6 +1798,8 @@
     
     <div class="field-items">
       <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">area (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">page (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -1766,6 +1819,13 @@
 <div class="param">story </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">langiso </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">types </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="stories_story_body_1"><code>stories_story_body_1</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
