@@ -3,8 +3,7 @@ async function analyzse(text, langiso) {
     text,
     langiso,
   };
-
-  let result = await fetch("http://localhost:5000/analyze", {
+  let result = await fetch(process.env.LANGSERVER_URI + "analyze", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

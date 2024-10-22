@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+require("express-async-errors");
 const app = express();
 const port = 3000;
 const session = require("express-session");
@@ -20,7 +21,7 @@ app.use(
 
     store: MongoStore.create({
       dbName: "konjugo",
-      mongoUrl: "mongodb://localhost:27017/",
+      mongoUrl: process.env.MONGODB_URI,
     }),
   })
 );
@@ -30,6 +31,14 @@ app.use("/train", trainRoute);
 app.use("/stats", statisticsRoute);
 app.use("/stories", storiesRoute);
 app.use("/profile", profileRoute);
+
+app.use((err, req, res, next) => {
+  if (err) {
+    console.log(err);
+    return res.status(500).send({});
+  }
+  next(err);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
