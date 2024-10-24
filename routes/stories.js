@@ -90,10 +90,25 @@ router.post("/story", authMiddleware, async (req, res) => {
 router.post("/get_story", authMiddleware, async (req, res) => {
   let id = req.body.id;
 
-  let story = await db.connection.db
+  let story = await db.connection
     .collection("story")
-    .find({ _id: new mongoose.Types.ObjectId(id) })
-    .project({ likes: 0 })
+    .aggregate([
+      {
+        $match: { _id: new mongoose.Types.ObjectId(id) },
+      },
+      {
+        $addFields: {
+          liked: {
+            $in: [new mongoose.Types.ObjectId(req.session.user.id), "$likes"],
+          },
+        },
+      },
+      {
+        $project: {
+          likes: 0,
+        },
+      },
+    ])
     .toArray();
 
   if (story.length == 0) return qr.badRequest(res, "Invalid story id");
@@ -171,6 +186,10 @@ router.post("/get_story_dash", authMiddleware, async (req, res) => {
     filter.user = new mongoose.Types.ObjectId(req.session.user.id);
   }
 
+  if (area == "liked") {
+    filter.likes = new mongoose.Types.ObjectId(req.session.user.id);
+  }
+
   let stories = await db.connection.db
     .collection("story")
     .aggregate([
@@ -201,6 +220,7 @@ router.post("/get_story_dash", authMiddleware, async (req, res) => {
     .toArray();
 
   let pages = Math.floor((stories.length - 1) / 10);
+  if (pages < 0) pages = 0;
 
   if (page > pages) page = pages;
 

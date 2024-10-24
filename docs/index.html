@@ -889,49 +889,9 @@
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
-  "pages" : 6.027456183070403,
-  "stories" : [ {
-    "langiso" : "langiso",
-    "placeholders" : [ {
-      "flection" : "flection",
-      "lemma" : "lemma",
-      "type" : "type",
-      "tags" : [ "tags", "tags" ]
-    }, {
-      "flection" : "flection",
-      "lemma" : "lemma",
-      "type" : "type",
-      "tags" : [ "tags", "tags" ]
-    } ],
-    "placeholderCount" : 5,
-    "description" : "description",
-    "likeCount" : 1,
-    "_id" : "_id",
-    "text" : [ "text", "text" ],
-    "title" : "title",
-    "timestamp" : "timestamp"
-  }, {
-    "langiso" : "langiso",
-    "placeholders" : [ {
-      "flection" : "flection",
-      "lemma" : "lemma",
-      "type" : "type",
-      "tags" : [ "tags", "tags" ]
-    }, {
-      "flection" : "flection",
-      "lemma" : "lemma",
-      "type" : "type",
-      "tags" : [ "tags", "tags" ]
-    } ],
-    "placeholderCount" : 5,
-    "description" : "description",
-    "likeCount" : 1,
-    "_id" : "_id",
-    "text" : [ "text", "text" ],
-    "title" : "title",
-    "timestamp" : "timestamp"
-  } ],
-  "page" : 0.8008281904610115
+  "pages" : 6,
+  "stories" : [ "", "" ],
+  "page" : 0
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1488,6 +1448,7 @@
 
   <h3>Table of Contents</h3>
   <ol>
+    <li><a href="#DashStory"><code>DashStory</code></a></li>
     <li><a href="#Langauge"><code>Langauge</code></a></li>
     <li><a href="#LanguageArray"><code>LanguageArray</code></a></li>
     <li><a href="#LanguageDetails"><code>LanguageDetails</code></a></li>
@@ -1530,6 +1491,23 @@
     <li><a href="#user_user_exists_body"><code>user_user_exists_body</code></a></li>
   </ol>
 
+  <div class="model">
+    <h3><a name="DashStory"><code>DashStory</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">likeCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">placeholderCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">deletable (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">langiso (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">placeholders (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story_placeholders">array[Story_placeholders]</a></span>  </div>
+<div class="param">liked (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
   <div class="model">
     <h3><a name="Langauge"><code>Langauge</code></a> <a class="up" href="#__Models">Up</a></h3>
     
@@ -1633,8 +1611,7 @@
 <div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
 <div class="param">placeholders (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story_placeholders">array[Story_placeholders]</a></span>  </div>
-<div class="param">likeCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
-<div class="param">placeholderCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">liked (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -1685,17 +1662,16 @@
 <div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
 <div class="param">placeholders (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story_placeholders">array[Story_placeholders]</a></span>  </div>
-<div class="param">likeCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
-<div class="param">placeholderCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">liked (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
     <h3><a name="StoryCollection"><code>StoryCollection</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
-      <div class="param">page (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
-<div class="param">pages (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
-<div class="param">stories (optional)</div><div class="param-desc"><span class="param-type"><a href="#Story">array[Story]</a></span>  </div>
+      <div class="param">page (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">pages (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">stories (optional)</div><div class="param-desc"><span class="param-type"><a href="#DashStory">array[DashStory]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">

@@ -16,13 +16,13 @@ router.post("/statistics", authMiddleware, async (req, res) => {
 
   for (let i = 0; i < statistics.length; i++) {
     if (
-      !statistics[0].langiso ||
-      !statistics[0].lemma ||
-      !Array.isArray(statistics[0].tags) ||
-      !statistics[0].langiso ||
-      !statistics.timestamp ||
-      !statistics.seconds ||
-      !statistics.levenshtein
+      !statistics[i].langiso ||
+      !statistics[i].lemma ||
+      !Array.isArray(statistics[i].tags) ||
+      !statistics[i].langiso ||
+      !statistics[i].timestamp ||
+      !statistics[i].seconds ||
+      !statistics[i].levenshtein
     ) {
       invalidInput = true;
       break;
