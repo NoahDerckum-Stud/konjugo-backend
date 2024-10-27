@@ -69,7 +69,7 @@ async function transformStats(
     new Date(stats[stats.length - 1].timestamp),
     mode
   );
-  console.log("dm", convertedDateMax, stats[stats.length - 1].timestamp);
+
   let convertedDateCount = convertedDateMax - convertedDateMin + 1;
   let labels = new Array(convertedDateCount).fill(undefined);
 
@@ -137,7 +137,6 @@ function projectData(
       }
     }
   }
-  console.log(ignoredAttributes);
   let datasets = [];
   let colorIterator = 0;
   for (let i in transformedStats) {

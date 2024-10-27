@@ -10,7 +10,6 @@ async function analyzse(text, langiso) {
     },
     body: JSON.stringify(data),
   });
-  console.log(result);
 
   return result.json();
 }

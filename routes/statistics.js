@@ -19,10 +19,9 @@ router.post("/statistics", authMiddleware, async (req, res) => {
       !statistics[i].langiso ||
       !statistics[i].lemma ||
       !Array.isArray(statistics[i].tags) ||
-      !statistics[i].langiso ||
       !statistics[i].timestamp ||
-      !statistics[i].seconds ||
-      !statistics[i].levenshtein
+      statistics[i].seconds == undefined ||
+      statistics[i].levenshtein == undefined
     ) {
       invalidInput = true;
       break;
@@ -59,8 +58,6 @@ router.post("/get_statistics", authMiddleware, async (req, res) => {
   let maxDate = new Date(8640000000000000);
   let minDate = new Date(-8640000000000000);
   if (!dateRange) dateRange = [minDate, maxDate];
-
-  console.log(req.session.user);
 
   let result = await db.connection.db
     .collection("statistics")

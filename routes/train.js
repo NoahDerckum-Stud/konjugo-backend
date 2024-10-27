@@ -20,7 +20,7 @@ router.post("/start_challange", authMiddleware, async (req, res) => {
   let langiso = req.body.langiso;
   let samples = req.body.samples;
 
-  if (!langiso || !tags || !lemmas || !samples) {
+  if (!langiso || !tags || !lemmas || samples == undefined) {
     return qr.badRequest(res, "Missing Parameters");
   }
 

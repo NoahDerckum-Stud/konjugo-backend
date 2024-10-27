@@ -11,7 +11,6 @@ authRoute.post("/register", async (req, res) => {
   let password = req.body.password;
 
   if (!username || !password || !mail) {
-    console.log(username, password, mail);
     return qr.badRequest(res);
   }
 
